@@ -17,6 +17,7 @@ movement sequence as a means to generally “unlock” a resource.
 resource.  
 ● A successful unlock must be indicated by a visual indication, such as an LED or similar
 indicator.  
+
 Restrictions:  
 ● This is a group project to be done by groups of no more than 3 students  
 ● Only one microcontroller and one accelerometer/gyro may be used, specifically the one
