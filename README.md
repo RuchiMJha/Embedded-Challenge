@@ -1,34 +1,69 @@
-Embedded Challenge Fall 2024 Term Project  
-“Embedded Sentry”  
-Group 43    
-Ruchi Jha 
-Tanvi Takavane  
-Neha Patil  
+# Embedded Sentry – Gesture-Based Lock/Unlock System
 
-Motivation:  
+**Group 43 – Embedded Challenge, Fall 2024**  
+Tanvi Abhijit Takavane, Ruchi Jha, Neha Patil
 
-In an age where security has become a center of focus for data storage, data access, and
-robust protection of personal property, many different approaches to “hack-free” protection of
-assets has emerged. These range from physical protection, to OTA, to biometrics. This
-challenge focusses on designing an embedded system, using your dev boards, to provides a
-mechanism to provide generic lock/unlock capabilities using your IMU (i.e. gesture control).  
+## Project Overview
 
-Objective:  
-● Use the data collected from a single accelerometer and/or gyro to record a hand
-movement sequence as a means to generally “unlock” a resource.  
-● Recorded sequence must be saved on the microcontroller, using a “Record Key” feature.  
-● User then must replicate the key sequence within sufficient tolerances to unlock the
-resource.  
-● A successful unlock must be indicated by a visual indication, such as an LED or similar
-indicator.  
+This project implements an embedded security mechanism using gesture recognition as a locking and unlocking feature. The system is built on the STM32F429I-DISC1 development board and uses onboard IMU data (accelerometer/gyroscope) to capture and authenticate hand movement patterns. The project was developed as part of the Embedded Systems course term project.
 
-Restrictions:  
-● This is a group project to be done by groups of no more than 3 students  
-● Only one microcontroller and one accelerometer/gyro may be used, specifically the one
-integrated on your board.  
-● You must use PlatformIO as we have done throughout the class  
-● You will be allowed to use drivers/HAL functions available through the IDE  
-● The accelerometer/gyro must be held in a closed fist of either hand while performing the
-mechanical sequence.  
-● An “enter key” and ”record” functionality must be developed to so the user knows when
-to start the sequence of unlocking and recording respectively  
+## Objective
+
+- Utilize data from the onboard accelerometer and/or gyroscope to record a hand gesture sequence for unlocking a protected resource.
+- Store the recorded sequence on the microcontroller via a "Record Key" feature.
+- Authenticate by comparing a new gesture input with the saved gesture pattern within a defined tolerance.
+- Indicate success or failure through visual feedback (color-coded screen/LED).
+
+## Features
+
+- **Platform**: STM32F429I-DISC1 development board
+- **Input**: Onboard IMU (accelerometer/gyro)
+- **User Interface**: Onboard blue push-button
+- **Visual Feedback**: Color-coded TFT screen display
+  - Red Screen: No key recorded or unlock failed
+  - Blue Screen: Recording or entering key
+  - Green Screen: Unlock successful
+- **Development Environment**: PlatformIO with STM32 HAL drivers
+
+## System Workflow
+
+1. **Startup**: Upload the code to the board. The white screen indicates system ready.
+2. **No Key Recorded**: First button press prompts a red screen indicating no stored gesture.
+3. **Record Gesture**: Second button press triggers "Recording" (blue screen). Gesture is captured and stored.
+4. **Enter Gesture**: Third button press begins authentication. Matching gesture leads to "Unlock Success" (green screen).
+5. **Incorrect Gesture**: Further input with a non-matching gesture displays "Unlock Failed" (red screen).
+
+## Technical Highlights
+
+- **Gesture Comparison**: Captures motion vectors and compares them using signal similarity metrics (e.g., Euclidean or DTW).
+- **Tolerance Window**: Ensures flexibility in movement while maintaining robustness in unlocking.
+- **Memory Management**: Stored sequence is written to RAM or onboard flash for persistence.
+- **Power & Portability**: Low-power design suitable for embedded, battery-operated environments.
+
+## Usage Instructions
+
+1. Connect the STM32 board via USB.
+2. Use PlatformIO to upload the code.
+3. Follow on-screen prompts using the blue user button:
+   - First press: Check key status.
+   - Second press: Record gesture.
+   - Third press: Attempt to unlock.
+4. Observe visual feedback to determine success/failure.
+
+## Repository Contents
+
+- `main.cpp` (or `main.c`): Contains main control logic and gesture handling
+- `imu_driver.c/h`: Interfaces with the accelerometer/gyro sensor
+- `display.c/h`: Manages on-screen feedback using the LCD controller
+- `utils.c/h`: Includes gesture comparison algorithms and tolerance settings
+- `platformio.ini`: Project configuration for PlatformIO
+
+## Future Work
+
+- Add buzzer feedback or haptic motor for silent unlock indication
+- Implement EEPROM saving for gesture persistence across resets
+- Add gesture complexity analysis for multi-step patterns
+
+## License
+
+This project is intended for academic use as part of NYU’s Embedded Systems coursework. All code and design contributions were made by the listed team members.
