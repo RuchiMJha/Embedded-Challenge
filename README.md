@@ -1,5 +1,9 @@
 Embedded Challenge Fall 2024 Term Project  
 “Embedded Sentry”  
+Group 43    
+Ruchi Jha 
+Tanvi Takavane  
+Neha Patil  
 
 Motivation:  
 
